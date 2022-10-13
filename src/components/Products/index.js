@@ -28,18 +28,21 @@ class Products extends Component {
     productName: '',
     Quantity: '',
     price: '',
+    error: 'please enter the field',
   }
 
   onAddProduct = event => {
     event.preventDefault()
-    const {productName, Quantity, price} = this.state
+    const {productName, Quantity, price, error} = this.state
+    alert('Are you sure you want to view the details?')
+
     const newContact = {
       productName,
       Quantity,
       price,
     }
 
-    this.setState(prevState => ({
+    return this.setState(prevState => ({
       productsList: [...prevState.productsList, newContact],
       productName: '',
       Quantity: '',
@@ -61,6 +64,7 @@ class Products extends Component {
 
   render() {
     const {productName, Quantity, price, productsList} = this.state
+
     return (
       <div className="app-container">
         <div className="responsive-container">
@@ -89,7 +93,6 @@ class Products extends Component {
                 Submit
               </button>
             </div>
-
             <h1>ProductsLists</h1>
           </form>
           <ul className="product-table">
