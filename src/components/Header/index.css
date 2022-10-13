@@ -1,0 +1,8 @@
+.list-type {
+  display: flex;
+  flex-direction: row;
+  list-style-type: none;
+}
+.spacing {
+  margin-left: 30px;
+}
