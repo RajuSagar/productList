@@ -109,3 +109,6 @@
   margin-left: 182px;
   border: 1px solid #cbd5e1;
 }
+.error-msg {
+  color: red;
+}

@@ -28,12 +28,28 @@ class Products extends Component {
     productName: '',
     Quantity: '',
     price: '',
+    errorCondition: false,
     error: 'please enter the field',
   }
 
   onAddProduct = event => {
     event.preventDefault()
-    const {productName, Quantity, price, error} = this.state
+    const {productName, Quantity, price} = this.state
+    if (productName === '') {
+      this.setState({errorCondition: true})
+    } else {
+      this.setState({errorCondition: false})
+    }
+    if (Quantity === '') {
+      this.setState({errorCondition: true})
+    } else {
+      this.setState({errorCondition: false})
+    }
+    if (price === '') {
+      this.setState({errorCondition: true})
+    } else {
+      this.setState({errorCondition: false})
+    }
     alert('Are you sure you want to view the details?')
 
     const newContact = {
@@ -63,7 +79,13 @@ class Products extends Component {
   }
 
   render() {
-    const {productName, Quantity, price, productsList} = this.state
+    const {
+      productName,
+      Quantity,
+      price,
+      productsList,
+      errorCondition,
+    } = this.state
 
     return (
       <div className="app-container">
@@ -76,37 +98,50 @@ class Products extends Component {
               className="input"
               placeholder="Enter Product Name"
             />
+
             <input
               className="input"
               value={Quantity}
               onChange={this.onChangeQuantity}
               placeholder="Enter Quantity"
             />
+
             <input
               className="input"
               value={price}
               onChange={this.onChangePrice}
               placeholder="Enter price"
             />
+            {errorCondition ? (
+              <p className="error-msg">please enter all the fields</p>
+            ) : (
+              ''
+            )}
             <div>
               <button type="submit" className="button">
                 Submit
               </button>
             </div>
-            <h1>ProductsLists</h1>
           </form>
-          <ul className="product-table">
-            <li className="table-header">
-              <p className="table-header-cell name-column">Product Name</p>
-              <hr className="separator" />
-              <p className="table-header-cell">Quantity</p>
-              <hr className="separator2" />
-              <p className="table-header-cell">Price</p>
-            </li>
-            {productsList.map(each => (
-              <ProductsList key={each.id} productDetails={each} />
-            ))}
-          </ul>
+          {errorCondition ? (
+            ''
+          ) : (
+            <div>
+              <h1>ProductsLists</h1>
+              <ul className="product-table">
+                <li className="table-header">
+                  <p className="table-header-cell name-column">Product Name</p>
+                  <hr className="separator" />
+                  <p className="table-header-cell">Quantity</p>
+                  <hr className="separator2" />
+                  <p className="table-header-cell">Price</p>
+                </li>
+                {productsList.map(each => (
+                  <ProductsList key={each.id} productDetails={each} />
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       </div>
     )
